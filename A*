@@ -1,0 +1,14 @@
+import heapq
+def astar(graph,start,goal,h):
+    q=[(h[start],0,start,[])]
+    seen=set()
+    while q:
+        f,g,v,path=heapq.heappop(q)
+        if v==goal: return path+[v]
+        if v in seen: continue
+        seen.add(v)
+        for n,c in graph[v]:
+            heapq.heappush(q,(g+c+h[n],g+c,n,path+[v]))
+graph={'A':[('B',1),('C',3)],'B':[('D',1)],'C':[('D',1)],'D':[]}
+h={'A':3,'B':2,'C':1,'D':0}
+print(astar(graph,'A','D',h))
